@@ -17,4 +17,11 @@ public class ValidationUtilsTest {
         assertThat(ValidationUtils.validNo(10)).isFalse();
         assertThat(ValidationUtils.validNo(-1)).isFalse();
     }
+
+    @Test
+    @DisplayName("자동자 이름이 5글자 이하인지 검증")
+    void 자동차_이름_5글자_이하() {
+        assertThat(ValidationUtils.validLengthName(Arrays.asList("crong","luppy","ace"))).isTrue();
+        assertThat(ValidationUtils.validLengthName(Arrays.asList("crong","luppy","aceace"))).isFalse();
+    }
 }

@@ -2,11 +2,11 @@ package racingcar;
 
 public class Car {
     private String carName;
-    private int racingCount;
+    private int position;
 
-    public Car(String carName, int racingCount) {
+    public Car(String carName, int position) {
         this.carName = carName;
-        this.racingCount = racingCount;
+        this.position = position;
     }
 
     public String getCarName() {
@@ -17,11 +17,11 @@ public class Car {
         this.carName = carName;
     }
 
-    public int getRacingCount() {
-        return racingCount;
+    public int getPosition() {
+        return position;
     }
 
-    public void setRacingCount(int randomNo) {
-        this.racingCount = randomNo;
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

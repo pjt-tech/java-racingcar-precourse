@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.*;
 
 public class RacingCarTest {
@@ -12,7 +14,7 @@ public class RacingCarTest {
 
     @BeforeEach
     void setup() {
-        car = new RacingCar();
+        car = new RacingCar(5);
     }
 
     @Test
@@ -20,16 +22,5 @@ public class RacingCarTest {
     void stop_and_go() {
         assertThat(car.stopAndGo(4)).isEqualTo(CarStatus.GO);
         assertThat(car.stopAndGo(3)).isEqualTo(CarStatus.STOP);
-    }
-
-    @Test
-    @DisplayName("자동차 경주 준비!")
-    void ready() {
-
-    }
-
-    @Test
-    @DisplayName("자동차 경주 시작!")
-    void start() {
     }
 }

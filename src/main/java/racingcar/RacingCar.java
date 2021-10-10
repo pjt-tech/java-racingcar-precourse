@@ -7,15 +7,19 @@ import java.util.List;
 
 public class RacingCar {
 
-    private int tmpPosition;
+    private final ArrayList<Car> champions = new ArrayList<>();
+    private static final int POSITION_COUNT = 1;
+    private static final int MIN_RANDOM_NUMBER = 0;
+    private static final int MAX_RANDOM_NUMBER = 9;
     private final int runCount;
-    private ArrayList<Car> champion = new ArrayList<>();
+    private int tmpPosition;
 
     public RacingCar(int runCount) {
         this.runCount = runCount;
     }
 
     public void racingStart(List<Car> cars) {
+        System.out.println("실행 결과");
         for(int i = 0; i < runCount; i++) {
             setRacingCar(cars);
         }
@@ -26,21 +30,15 @@ public class RacingCar {
         for (Car car : cars) {
             setMatchWinner(car);
         }
-        printResult();
-    }
-
-    private void printResult() {
-        String[] winner = new String[champion.size()];
-        for (int i = 0; i < champion.size(); i++) {
-            winner[i] = champion.get(i).getCarName();
-        }
-        System.out.println("최종 우승자는 " + String.join(",", winner) + "입니다. 축하합니다~!!!");
     }
 
     private void setMatchWinner(Car car) {
-        if(tmpPosition <= car.getPosition()) {
+        if(tmpPosition < car.getPosition()) {
             tmpPosition = car.getPosition();
-            champion.add(car);
+            champions.clear();
+            champions.add(car);
+        } else if(tmpPosition == car.getPosition()){
+            champions.add(car);
         }
     }
 
@@ -48,6 +46,22 @@ public class RacingCar {
         for (Car car : cars) {
             setCarPosition(car, stopAndGo(getRandomNumber()));
         }
+        printProgress(cars);
+    }
+
+    private void printProgress(List<Car> cars) {
+        for (Car car : cars) {
+            System.out.println(car.getCarName() + ": " + setRoute(car.getPosition()));
+        }
+        System.out.println();
+    }
+
+    private String setRoute(int position) {
+        StringBuilder builder = new StringBuilder();
+        for(int i = 0; i < position; i++) {
+            builder.append("-");
+        }
+        return builder.toString();
     }
 
     public CarStatus stopAndGo(int no) {
@@ -56,12 +70,19 @@ public class RacingCar {
 
     private void setCarPosition(Car car, CarStatus state) {
         if(CarStatus.GO == state) {
-            int position = car.getPosition();
-            car.setPosition(position += 1);
+            car.setPosition(car.getPosition() + POSITION_COUNT);
         }
     }
 
     private int getRandomNumber() {
-        return Randoms.pickNumberInRange(0,9);
+        return Randoms.pickNumberInRange(MIN_RANDOM_NUMBER,MAX_RANDOM_NUMBER);
+    }
+
+    public void printResult() {
+        String[] winner = new String[champions.size()];
+        for (int i = 0; i < champions.size(); i++) {
+            winner[i] = champions.get(i).getCarName();
+        }
+        System.out.println("최종 우승자는 " + String.join(",", winner) + "입니다. 축하합니다~!!!");
     }
 }

@@ -1,7 +1,10 @@
 package racingcar;
 
 public class RacingCar {
-    public boolean startRace(int no) {
-        return no >= 4;
+    public  RacingCar() {
+
+    }
+    public CarStatus stopAndGo(int no) {
+        return CarStatus.isState(no);
     }
 }

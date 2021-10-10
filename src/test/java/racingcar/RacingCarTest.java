@@ -1,9 +1,10 @@
 package racingcar;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.*;
 
 public class RacingCarTest {
 
@@ -15,14 +16,20 @@ public class RacingCarTest {
     }
 
     @Test
-    @DisplayName("랜덤 값이 4이상일경우 전진!")
-    void go() {
-        Assertions.assertThat(car.startRace(4)).isTrue();
+    @DisplayName("숫자가 4이상이면 RUN 4이하이면 STOP")
+    void stop_and_go() {
+        assertThat(car.stopAndGo(4)).isEqualTo(CarStatus.GO);
+        assertThat(car.stopAndGo(3)).isEqualTo(CarStatus.STOP);
     }
 
     @Test
-    @DisplayName("랜덤 값이 3이상일경우 멈춰!")
-    void stop() {
-        Assertions.assertThat(car.startRace(3)).isFalse();
+    @DisplayName("자동차 경주 준비!")
+    void ready() {
+
+    }
+
+    @Test
+    @DisplayName("자동차 경주 시작!")
+    void start() {
     }
 }

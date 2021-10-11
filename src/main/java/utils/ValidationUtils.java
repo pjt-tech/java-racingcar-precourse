@@ -3,6 +3,9 @@ package utils;
 import java.util.List;
 
 public class ValidationUtils {
+    private static boolean numberDiscrimination = true;
+    private static final int CHAR_IDX = 0;
+
     public static boolean validNo(int no) {
         return no >= 0 && no <= 9;
     }
@@ -19,14 +22,17 @@ public class ValidationUtils {
     }
 
     public static boolean verificationNumber(String inputNum) {
-        for(int i = 0; i < inputNum.length(); i++) {
-            char tmp = inputNum.charAt(i);
-            return checkNumber(tmp);
+        numberDiscrimination = true;
+        String[] numArr = inputNum.split("");
+        for (String s : numArr) {
+            checkNumber(s.charAt(CHAR_IDX));
         }
-        return false;
+        return numberDiscrimination;
     }
 
-    private static boolean checkNumber(char charNum) {
-        return Character.isDigit(charNum);
+    private static void checkNumber(char charNum) {
+        if(!Character.isDigit(charNum)) {
+            numberDiscrimination = false;
+        }
     }
 }

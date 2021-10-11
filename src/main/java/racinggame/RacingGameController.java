@@ -4,10 +4,8 @@ import nextstep.utils.Console;
 import racingcar.Car;
 import racingcar.RacingCar;
 import utils.ValidationUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.PrimitiveIterator;
 
 public class RacingGameController {
 
@@ -31,27 +29,29 @@ public class RacingGameController {
     }
 
     private void checkValidation(boolean resultLength) {
-        if(resultLength) {
-            inputRacingCount();
-            lengthVerificationLoop = false;
+        if(!resultLength) {
+            System.out.println(ERROR_CAR_NAME);
+            return;
         }
-        System.out.println(ERROR_CAR_NAME);
+        inputRacingCount();
+        lengthVerificationLoop = false;
     }
 
     private void inputRacingCount() {
         while (NumberVerificationLoop) {
-            System.out.print(INPUT_RACING_COUNT);
+            System.out.println(INPUT_RACING_COUNT);
             validationNumber();
         }
     }
 
     private void validationNumber() {
         String inputNumber = Console.readLine();
-        if(ValidationUtils.verificationNumber(inputNumber)){
-            runCount = Integer.parseInt(inputNumber);
-            NumberVerificationLoop = false;
+        if(!ValidationUtils.verificationNumber(inputNumber)){
+            System.out.println(ERROR_RACING_COUNT);
+            return;
         }
-        System.out.println(ERROR_RACING_COUNT);
+        runCount = Integer.parseInt(inputNumber);
+        NumberVerificationLoop = false;
     }
 
     public void startGame() {

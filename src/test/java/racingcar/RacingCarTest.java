@@ -18,7 +18,7 @@ public class RacingCarTest{
     @Test
     @DisplayName("숫자가 4이상이면 RUN 4이하이면 STOP")
     void stop_and_go() {
-        assertThat(car.stopAndGo(4)).isEqualTo(CarStatus.GO);
+        assertThat(car.stopAndGo(4)).isEqualTo(CarStatus.MOVING_FORWARD);
         assertThat(car.stopAndGo(3)).isEqualTo(CarStatus.STOP);
     }
 }

@@ -7,8 +7,9 @@ import java.util.List;
 
 public class RacingCar {
 
-    private final ArrayList<Car> champions = new ArrayList<>();
-    private static final int POSITION_COUNT = 1;
+    private final ArrayList<Car> winners = new ArrayList<>();
+    private static final int REFERENCE_NUMBER = 4;
+    private static final int POSITION_PLUS_COUNT = 1;
     private static final int MIN_RANDOM_NUMBER = 0;
     private static final int MAX_RANDOM_NUMBER = 9;
     private final int runCount;
@@ -19,7 +20,7 @@ public class RacingCar {
     }
 
     public void racingStart(List<Car> cars) {
-        System.out.println("실행 결과");
+        System.out.println("\n실행 결과");
         for(int i = 0; i < runCount; i++) {
             setRacingCar(cars);
         }
@@ -35,10 +36,10 @@ public class RacingCar {
     private void setMatchWinner(Car car) {
         if(tmpPosition < car.getPosition()) {
             tmpPosition = car.getPosition();
-            champions.clear();
-            champions.add(car);
+            winners.clear();
+            winners.add(car);
         } else if(tmpPosition == car.getPosition()){
-            champions.add(car);
+            winners.add(car);
         }
     }
 
@@ -64,13 +65,13 @@ public class RacingCar {
         return builder.toString();
     }
 
-    public CarStatus stopAndGo(int no) {
-        return CarStatus.isState(no);
+    public CarStatus stopAndGo(int randomNo) {
+        return CarStatus.isState(randomNo, REFERENCE_NUMBER);
     }
 
     private void setCarPosition(Car car, CarStatus state) {
         if(CarStatus.GO == state) {
-            car.setPosition(car.getPosition() + POSITION_COUNT);
+            car.setPosition(car.getPosition() + POSITION_PLUS_COUNT);
         }
     }
 
@@ -79,9 +80,9 @@ public class RacingCar {
     }
 
     public void printResult() {
-        String[] winner = new String[champions.size()];
-        for (int i = 0; i < champions.size(); i++) {
-            winner[i] = champions.get(i).getCarName();
+        String[] winner = new String[winners.size()];
+        for (int i = 0; i < winners.size(); i++) {
+            winner[i] = winners.get(i).getCarName();
         }
         System.out.println("최종 우승자는 " + String.join(",", winner) + "입니다. 축하합니다~!!!");
     }

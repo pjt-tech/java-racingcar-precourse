@@ -25,4 +25,11 @@ public class ValidationUtilsTest {
         assertThat(ValidationUtils.validLengthName(Arrays.asList("crong","luppy","ace"))).isTrue();
         assertThat(ValidationUtils.validLengthName(Arrays.asList("crong","luppy","aceace"))).isFalse();
     }
+
+    @Test
+    @DisplayName("입력값이 숫자인가?")
+    void 숫자_검증() {
+        assertThat(ValidationUtils.verificationNumber("5")).isTrue();
+        assertThat(ValidationUtils.verificationNumber("as")).isFalse();
+    }
 }

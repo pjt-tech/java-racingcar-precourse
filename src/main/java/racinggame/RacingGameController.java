@@ -2,6 +2,7 @@ package racinggame;
 
 import nextstep.utils.Console;
 import racingcar.Car;
+import racingcar.Cars;
 import racingcar.RacingCar;
 import utils.ValidationUtils;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class RacingGameController {
     private static final String INPUT_RACING_COUNT = "시도할 회수는 몇회인가요?";
     private static final String ERROR_RACING_COUNT = "[ERROR]숫자만 입력가능합니다.^^*";
     private RacingCar car;
+    private Cars cars;
     private String[] carNames;
     private int runCount;
     private boolean lengthVerificationLoop = true;
@@ -55,16 +57,17 @@ public class RacingGameController {
     }
 
     public void startGame() {
+        createCars();
         car = new RacingCar(runCount);
-        car.racingStart(getCarList());
+        car.racingStart(cars.getCars());
     }
 
-    private ArrayList<Car> getCarList() {
-        ArrayList<Car> cars = new ArrayList<>();
+    private void createCars() {
+        ArrayList<Car> carList = new ArrayList<>();
         for (String carName : carNames) {
-            cars.add(new Car(carName,0));
+            carList.add(new Car(carName,0));
         }
-        return cars;
+        cars = new Cars(carList);
     }
 
     public void setView() {

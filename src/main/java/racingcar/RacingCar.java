@@ -7,7 +7,7 @@ import java.util.List;
 public class RacingCar {
 
     private static final String GAME_RESULT = "\n실행 결과";
-    private final ArrayList<Car> winners = new ArrayList<>();
+    private Winners winners;
     private static final int REFERENCE_NUMBER = 4;
     private static final int POSITION_PLUS_COUNT = 1;
     private static final int MIN_RANDOM_NUMBER = 0;
@@ -24,22 +24,24 @@ public class RacingCar {
         for(int i = 0; i < runCount; i++) {
             setRacingCar(cars);
         }
-        racingResult(cars);
+        createWinners(cars);
     }
 
-    private void racingResult(List<Car> cars) {
+    private void createWinners(List<Car> cars) {
+        ArrayList<Car> winnerList = new ArrayList<>();
         for (Car car : cars) {
-            setMatchWinner(car);
+            setMatchWinner(car, winnerList);
         }
+        winners = new Winners(winnerList);
     }
 
-    private void setMatchWinner(Car car) {
+    private void setMatchWinner(Car car, ArrayList<Car> winnerList) {
         if(tmpPosition < car.getPosition()) {
             tmpPosition = car.getPosition();
-            winners.clear();
-            winners.add(car);
+            winnerList.clear();
+            winnerList.add(car);
         } else if(tmpPosition == car.getPosition()){
-            winners.add(car);
+            winnerList.add(car);
         }
     }
 
@@ -80,10 +82,6 @@ public class RacingCar {
     }
 
     public void printResult() {
-        String[] winner = new String[winners.size()];
-        for (int i = 0; i < winners.size(); i++) {
-            winner[i] = winners.get(i).getCarName();
-        }
-        System.out.println("최종 우승자는 " + String.join(",", winner) + " 입니다.");
+        winners.printResult();
     }
 }

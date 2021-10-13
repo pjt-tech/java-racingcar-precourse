@@ -16,7 +16,6 @@ public class RacingGameController {
     private static final String ERROR_RACING_COUNT = "[ERROR]숫자만 입력가능합니다.^^*";
     private RacingCar car;
     private Cars cars;
-    private String[] carNames;
     private int runCount;
     private boolean lengthVerificationLoop = true;
     private boolean NumberVerificationLoop = true;
@@ -24,19 +23,20 @@ public class RacingGameController {
     public boolean getUserInput() {
         while (lengthVerificationLoop) {
             System.out.println(INPUT_CAR_NAME);
-            carNames = Console.readLine().split(",");
-            checkValidation(ValidationUtils.validLengthName(Arrays.asList(carNames)));
+            checkInputValue();
         }
         return true;
     }
 
-    private void checkValidation(boolean resultLength) {
-        if(!resultLength) {
+    private void checkInputValue() {
+        try {
+            String[] carNames = Console.readLine().split(",");
+            cars = new Cars(createCars(carNames));
+            lengthVerificationLoop = false;
+            inputRacingCount();
+        } catch (IllegalArgumentException e) {
             System.out.println(ERROR_CAR_NAME);
-            return;
         }
-        inputRacingCount();
-        lengthVerificationLoop = false;
     }
 
     private void inputRacingCount() {
@@ -57,17 +57,16 @@ public class RacingGameController {
     }
 
     public void startGame() {
-        createCars();
         car = new RacingCar(runCount);
         car.racingStart(cars.getCars());
     }
 
-    private void createCars() {
+    private ArrayList<Car> createCars(String[] carNames) {
         ArrayList<Car> carList = new ArrayList<>();
         for (String carName : carNames) {
             carList.add(new Car(carName,0));
         }
-        cars = new Cars(carList);
+        return carList;
     }
 
     public void setView() {
